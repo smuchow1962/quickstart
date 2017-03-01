@@ -1,0 +1,40 @@
+{
+  "displayLabel" : "Can Cheat",
+  "expanded" : true,
+  "data" : {
+    "docName" : "v2_ab_test_group_1",
+    "id" : "1",
+    "enabled" : true,
+    "variant" : "1",
+    "configDocName" : "v2_ab_config_can_cheat_1"
+  },
+  "type": "node",
+  "children" : [
+    {
+      "displayLabel" : "All Cheats ON",
+      "expanded" : false,
+      "data" : {
+        "docName" : "v2_ab_config_can_cheat_1",
+        "id" : "1",
+        "enabled" : true,
+        "variant" : "1",
+        "configDocName" : ""
+      },
+      "type": "leaf",
+      "children" : [ ]
+    },
+    {
+      "displayLabel" : "ALL CHEATS OFF",
+      "expanded" : false,
+      "data" : {
+        "docName" : "v2_ab_config_can_cheat_2500",
+        "id" : "2500",
+        "enabled" : true,
+        "variant" : "2500",
+        "configDocName" : ""
+      },
+      "type": "leaf",
+      "children" : [ ]
+    }
+  ]
+}
