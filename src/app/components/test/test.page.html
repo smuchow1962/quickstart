@@ -1,39 +1,5 @@
-<h1>{{name}}</h1>
-<p>{{email}}</p>
-<hr />
-
-<ul>
-  <li *ngFor="let item of access.names">{{item}}</li>
-
-</ul>
-<form (submit)="addABTest(testName.value)">
-  <label>New ABTest: </label><br />
-  <input type="text" #testName /><br />
-</form>
-
-<div class="tree well">
-  <tree-view [directories]="treeNode"></tree-view>
-</div>
-
-<div class="tree well">
-
-  <ul>
-  <li> <span><i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;Bet Calculator</span>
-  <ul>
-  <li>	<span><i class="glyphicon glyphicon-ok-sign"></i> &nbsp;Default</span>
-  </li>
-  </ul>
-  </li>
-  <li> <span><i class="glyphicon glyphicon-folder-open"></i> &nbsp;&nbsp;&nbsp;Can Cheat</span>
-  <ul>
-  <li>	<span><i class="glyphicon  glyphicon-ok-sign"></i> &nbsp;Allow cheating</span>
-  </li>
-  <li>	<span><i class="glyphicon glyphicon-ban-circle"></i> &nbsp;Disable Cheats - NO CHEATING</span>
-  </li>
-  </ul>
-  </li>
-  </ul>
+<ABTestCore [documentData]="name"></ABTestCore>
+<tree-view [cbAbTests]="treeNode"  (treeViewEvent)="configDocEvent($event)" >
+</tree-view>
 
 
-
-</div>

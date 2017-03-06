@@ -1,20 +1,29 @@
-import {abTestIF, abItemIF} from '../interface/ABTestIF';
-import { StringUtil} from '../../services/string-util/string-util.service';
+import 'rxjs/add/operator/map';
+import { StringUtil }     from '../../services/string-util/string-util.service';
+import { PostsService }   from "../../services/posts/posts.service";
+import { HttpService }    from '../../services/http/http.service';
+import { Injectable }     from '@angular/core';
+import { abTestIF,
+         abTestResponseIF
+       } from '../interface/ABTestIF';
 
+@Injectable()
 export class Directory {
 
     displayLabel: string;
     expanded: boolean;
     type: string;
     dataArray: Array<DataIF>;
-    //children: Array<Directory>;
     checked: boolean;
-
+    server: PostsService;
+    server:string;
+    abTestResponse: abTestResponseIF;
 
     constructor() {
-      // console.log('creating ')
+      console.log('creating Directory')
       this.dataArray = new Array<DataIF>();
       this.expanded = false;
+      this.server = 'https://gf2.pfxdev.com/';
     }
 
     setFromABTest(abTest:abTestIF, prefix:string='') {
@@ -51,7 +60,18 @@ export class Directory {
     }
 
 
-    toggle() {
+  getCouchbaseDocument(docName:string) {
+    console.log('docget ' + docName);
+    let http = PostsService.http;
+    this.server = new PostsService(http);
+
+    this.server.getCouchbaseDocument(docName).subscribe((posts: any) => {
+      this.abTestResponse = posts;
+    });
+    return this.abTestResponse;
+  }
+
+  toggle() {
       this.expanded = !this.expanded;
     }
 
@@ -61,6 +81,13 @@ export class Directory {
       }
       return 'glyphicon glyphicon-folder-open';
     }
+
+  getButtonClass(showVal: boolean) {
+    if (showVal) {
+      return 'btn-xs btn-success';
+    }
+    return 'btn-xs btn-disabled';
+  }
 
   getFileIcon(showVal: boolean) {
     if (showVal) {

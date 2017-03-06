@@ -49,7 +49,36 @@ export interface abTestResponseIF {
   responses: abResponsIF[];
 }
 
+
+/**
+ *
+ {
+   "status": "ok",
+   "serverTimeUTC": 1488770480,
+   "psl": "1.1",
+   "responses": [
+     {
+       "$type": "models.EmptyModel",
+       "data": {
+         "variant": 1,
+         "enabled": true,
+         "description": "Bet Calculator",
+         "id": 9,
+         "testName": "bet_calculator",
+         "controlFlagId": 9
+       },
+       "docName": "v2_ab_test_group_9"
+     }
+   ]
+ }
+ *
+ */
+
 export class ABTestGroupContents implements abContentsIF {
+
+  constructor() {
+  }
+
   getConfigDocName(prefix: string): string {
     return prefix + '_ab_config_' + this.testName + '_' + this.variant;
   }
@@ -66,18 +95,16 @@ export class ABTestGroupContents implements abContentsIF {
     return this.variant.toString();
   }
 
-  constructor(
-    public variant: number|string,
-    public enabled: boolean,
-    public description: string,
-    public id: number,
-    public testName: string,
-    public controlFlagId: number,
-    public playerId: string,
-    public controlFlag: abControlFlagIF[],
-    public priority?: number,
-    public track?: number) {
-  }
+  public variant: number|string;
+  public enabled: boolean;
+  public description: string;
+  public id: number;
+  public testName: string;
+  public controlFlagId: number;
+  public playerId: string;
+  public controlFlag: abControlFlagIF[];
+  public priority?: number;
+  public track?: number;
 
 }
 

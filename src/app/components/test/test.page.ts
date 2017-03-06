@@ -1,26 +1,31 @@
 import { Component }     from '@angular/core';
 import { PostsService }  from '../../services/posts/posts.service';
 import { Directory }     from '../tree-view/directory';
+import { TreeView }     from '../tree-view/tree-view';
 import { abTestIF, abContentsIF, abControlFlagIF, abItemIF, abResponsIF, abTestResponseIF,
          ABTestResponse } from '../interface/ABTestIF';
+import { AbTestCore }     from '../abtest-core-view/abtest-core'
+import { ABTestDocument } from "../../services/ABTestDocument/ABTestDocument.service";
 
 @Component({
   moduleId: module.id,
   selector: 'test',
   templateUrl: './test.page.html',
-  providers: [PostsService]
+  providers: [PostsService],
+
 })
 export class TestPage {
   name: string; //: string;
   email: string; //: string;
   access: accessTree;
   abTestResponse: abTestResponseIF;
+  abConfigInfoDoc: abContentsIF;
   treeNode: Array<Directory>;
   tests: string[];
 
-
-  constructor(private postsService: PostsService) {
+  constructor(private postsService: PostsService, private _abTestDocument:ABTestDocument) {
     console.log('TestPage.constructor()');
+    console.log(this._abTestDocument);
     this.name = 'Steve Muchow';
     this.email = 'smuchow1962@gmail.com';
     this.access = {
@@ -39,6 +44,18 @@ export class TestPage {
       console.log(this.abTestResponse);
     });
 
+  }
+
+  configDocEvent(arg:any) {
+    if (arg !== undefined) {
+      console.log('EVENT PROPAGATED UPWARD:');
+      this.abConfigInfoDoc = arg;
+      let data = arg.responses[0].data;
+      console.log(data);
+      this.name = 'v2_ab_config_' + data.testName + '_' + data.variant;
+
+      // this.name = this.abConfigInfoDoc.getConfigDocName('v2_');
+    }
   }
 
   parseABTestPost(data: abTestResponseIF) {

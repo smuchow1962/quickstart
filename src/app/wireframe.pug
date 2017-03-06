@@ -1,0 +1,57 @@
+//
+   Created by 104653 on 3/3/17.
+
+html
+  body.body-base
+    #section-header.section-header-style
+      .app-header.w-container
+        .w-nav(data-animation='default', data-collapse='medium', data-duration='400')
+          .w-container
+            a.w-nav-brand(href='#')
+            nav.w-nav-menu(role='navigation')
+              a.w-nav-link(href='#') Home
+              a.w-nav-link(href='#') About
+              a.w-nav-link(href='#') Contact
+            .w-nav-button
+              .w-icon-nav-menu
+    #section-body-style.body-section
+      .body-column-left-3
+        .abtest-list
+          ul
+            li
+            li
+            li
+        .abtest-control
+          .w-form
+            form#email-form.add-feature-form(data-name='Email Form', name='email-form')
+              label.standard-label(for='Feature-Type') Add New Feature AB Test:
+              select#Feature-Type.w-select(data-name='Feature Type', name='Feature-Type')
+                option(value='') Select one...
+                option(value='First') Early Access
+                option(value='Second') Can Cheat
+                option(value='Third') Buried Treasure
+                option(value='Another Choice') Shell Drop
+              input#featureDescription.w-input(data-name='featureDescription', maxlength='256', name='featureDescription', placeholder='enter the feature description here', required='required', type='email')
+              input.add-feature-button.w-button(data-wait='Please wait...', type='submit', value='Add')
+            .w-form-done
+              div Thank you! Your submission has been received!
+            .w-form-fail
+              div Oops! Something went wrong while submitting the form
+      .body-column-right-9
+        .w-tabs(data-duration-in='300', data-duration-out='100')
+          .w-tab-menu
+            a.w--current.w-inline-block.w-tab-link(data-w-tab='Tab 1')
+              div entries
+            a.w-inline-block.w-tab-link(data-w-tab='Tab 2')
+              div details
+            a.w-inline-block.w-tab-link(data-w-tab='Tab 3')
+              div json
+          .w-tab-content
+            .tabview.w--tab-active.w-tab-pane(data-w-tab='Tab 1')
+              p.text-inner
+                | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum lorem imperdiet. Nunc ut sem vitae risus tristique posuere.
+            .w-tab-pane(data-w-tab='Tab 2')
+            .w-tab-pane(data-w-tab='Tab 3')
+    .footer-style
+      a(href='#') Text Link
+      div This is some text inside of a div block.

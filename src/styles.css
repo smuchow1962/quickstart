@@ -5,8 +5,9 @@ h1 {
 }
 
 .tree {
-  min-height:20px;
-  padding:19px;
+  min-height:15px;
+  /*min-width: 250px;*/
+  padding:3px;
   margin-bottom:20px;
   background-color:#fbfbfb;
   border:1px solid #999;
@@ -49,6 +50,7 @@ h1 {
   border-radius:5px;
   display:inline-block;
   padding:3px 8px;
+  min-width: 300px;
   text-decoration:none
 }
 .tree li.parent_li>span {
@@ -61,7 +63,221 @@ h1 {
   height:30px
 }
 .tree li.parent_li>span:hover, .tree li.parent_li>span:hover+ul li span {
-  background:#eee;
-  border:1px solid #94a0b4;
+  /*background:#eee;*/
+  /*border:1px solid #94a0b4;*/
   color:#000
 }
+
+
+/*
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  font-weight: bold;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.container-color {
+  background: #EEE;
+}
+
+.header {
+  background: #FDFDFD;
+}
+
+.footer {
+  background: #fdfdfd;
+}
+
+.main {
+  text-align: left;
+  background: #999999;
+}
+
+.aside-1 {
+  background: #dddddd;
+  min-width: 30%;
+  max-width: 30%;
+  overflow: -moz-scrollbars-vertical;
+  overflow: scroll;
+  white-space:nowrap
+}
+
+.aside-2 {
+  background: hotpink;
+}
+
+@media all and (min-width: 600px) {
+  .aside {
+    flex: 1 auto;
+  }
+}
+
+@media all and (min-width: 800px) {
+  .main {
+    flex: 3 0px;
+  }
+  .aside-1 {
+    order: 1;
+  }
+  .main {
+    order: 2;
+  }
+  .aside-2 {
+    order: 3;
+  }
+  .footer {
+    order: 4;
+  }
+}
+
+body {
+  padding: 2em;
+}
+*/
+
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+body > * {
+  flex-shrink: 0;
+}
+
+.ab-header {
+  /*background-color: yellow;*/
+  flex-grow: 0;
+}
+
+.ab-body-wrapper {
+  /*background-color: navajowhite;*/
+  min-height: 300px;
+  /*max-height: 900px;*/
+  height: 90%;
+  flex-grow: 1;
+}
+
+.ab-footer {
+  /*background-color: orange;*/
+  flex-grow: 0;
+}
+
+
+.tree-control-container {
+  display: flex;
+  /*display: -webkit-flex;*/
+  margin: 0px;
+  padding: 0px;
+  /*background-color: red;*/
+  min-height: 1px;
+  min-width: 1px;
+  height: 100%;
+  width: inherit;
+  position: relative;
+}
+
+.tree-list {
+  /*background-color: beige;*/
+  width: 100%;
+  min-width: 1px;
+  margin: 5px;
+  padding: 5px 10px 5px 10px;
+  margin-bottom: 105px;
+  min-height: 1px;
+  flex-grow: 1;
+  border: 0px solid white;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.tree-list-inner {
+  width: 1024px;
+  height: inherit;
+  overflow-x: auto;
+  /*background-color: azure;*/
+}
+
+.tree-entry {
+  /*background-color: brown;*/
+  width: 100%;
+  min-height: 105px;
+  border: 0px solid purple;
+  flex-grow: 0;
+  /*-webkit-flex-grow: 0;*/
+  bottom: 0;
+  left: 0;
+  position: absolute;
+}
+
+.tree-entry-inner {
+  height: 105px;
+  /*background-color: gainsboro;*/
+  margin: 5px 5px 5px 5px;
+  min-height: 1px;
+  padding: 5px;
+}
+
+.ab-test-browser-container {
+  width: 400px;
+  min-height: 100px;
+  max-height: 1900px;
+  /*background-color: gray;*/
+  float: left;
+  height: 100%;
+}
+
+.ab-test-content-container {
+  margin-left: 400px;
+  min-height: 100px;
+  max-height: 1900px;
+  /*background-color: black;*/
+  height: 100%;
+  flex-grow: 1;
+}
+
+.tab-view {
+  margin: 0px 0px 0px 0px;
+  padding: 5px;
+  /*background-color: gainsboro;*/
+  width-min: 1px;
+  height-min: 1px;
+  width: 100%;
+  height: 100%;
+}
+
+.tab-inner {
+  /*background-color: limegreen;*/
+  margin: 0px 20px 105px 5px;
+  padding: 5px;
+  height: 95%;
+  width: 96%;
+  border: 2px solid antiquewhite;
+  /* bottom: 10px; */
+}
+
+
+
+.ab-header-inner {
+  /*background-color: yellow;*/
+  overflow-x: hidden;
+}
+

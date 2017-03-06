@@ -1,10 +1,12 @@
-<ul>
-  <li *ngFor="let dir of directories">
+<!--<ABTestCore [testString]="name"></ABTestCore>-->
+<ul class="tree-list-inner tree">
+  <li *ngFor="let dir of cbAbTests">
     <span (click)="dir.toggle()"><i class="{{dir.getIcon()}}"></i> &nbsp;&nbsp;&nbsp;{{ dir.displayLabel }}</span>
     <div *ngIf="dir.expanded">
       <ul>
         <li *ngFor="let file of dir.dataArray">
-          <span (click)="dir.selectFile(file)"><i class="{{dir.getFileIcon(file.enabled)}}"></i> &nbsp;&nbsp;&nbsp;{{file.docName}}</span>
+          <span class="{{dir.getButtonClass(file.enabled)}}" (click)="selectFile(file)"><i class="{{dir.getFileIcon(file.enabled)}}"></i> &nbsp;&nbsp;&nbsp;{{file.label}}</span>
+          &nbsp;<a href="">{{file.docName}}</a>
         </li>
       </ul>
       <!--<tree-view [directories]="dir.directories"></tree-view>-->
@@ -12,5 +14,4 @@
 
   </li>
 </ul>
-
 
