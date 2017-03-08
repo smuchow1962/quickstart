@@ -17,7 +17,8 @@ export class TreeView {
   @Output()  treeViewEvent: EventEmitter<abTestResponseIF> = new EventEmitter();
   @Input()   cbAbTests: Array<Directory>;
 
-  constructor( protected _directory:Directory ) {}
+  constructor( protected _directory:Directory ) {
+  }
 
   selectFile(item:DataIF) {
     console.log('File Selected: ' + item.docName);

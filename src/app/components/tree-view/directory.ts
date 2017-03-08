@@ -1,94 +1,93 @@
 import 'rxjs/add/operator/map';
-import { StringUtil }     from '../../services/string-util/string-util.service';
-import { PostsService }   from "../../services/posts/posts.service";
-import { HttpService }    from '../../services/http/http.service';
-import { Injectable }     from '@angular/core';
-import { abTestIF,
-         abTestResponseIF
-       } from '../interface/ABTestIF';
-import { ABTestConfigResponseModel } from "../../services/interfaces/ABTestConfigResponseModel";
-import { plainToClass } from "class-transformer";
+import {StringUtil}     from '../../services/string-util/string-util.service';
+import {PostsService}   from "../../services/posts/posts.service";
+import {Injectable}     from '@angular/core';
+import {
+  abTestIF,
+  abTestResponseIF
+} from '../interface/ABTestIF';
+import {ABTestConfigResponseModel} from "../../services/interfaces/ABTestConfigResponseModel";
+import {plainToClass} from "class-transformer";
+import {ServerConnection} from "../../services/ServerConnection/ServerConnection.service";
 
 @Injectable()
 export class Directory {
 
-    displayLabel: string;
-    expanded: boolean;
-    type: string;
-    dataArray: Array<DataIF>;
-    checked: boolean;
-    server: PostsService;
-    serverName:string;
-    abTestResponse: abTestResponseIF;
-    abTestConfigResponseModel: any;
+  displayLabel: string;
+  expanded: boolean;
+  type: string;
+  dataArray: Array<DataIF>;
+  checked: boolean;
+  abTestResponse: abTestResponseIF;
+  abTestConfigResponseModel: any;
 
-    constructor() {
-      console.log('creating Directory');
-      this.dataArray = [];
-      this.expanded = false;
-      this.serverName = 'https://gf2.pfxdev.com/';
-    }
+  constructor(protected _serverConnection: ServerConnection, protected _postsService: PostsService) {
+    console.log('creating Directory');
+    this.dataArray = [];
+    this.expanded = false;
+  }
 
-    setFromABTest(abTest:abTestIF, prefix:string='') {
-      // console.log('setFromABTest');
-      // console.log(abTest);
+  setFromABTest(abTest: abTestIF, prefix: string = '') {
+    // console.log('setFromABTest');
+    // console.log(abTest);
 
-      this.displayLabel = abTest.test;
-      // console.log(this);
+    this.displayLabel = abTest.test;
+    // console.log(this);
 
-      let newList:any = [];
+    let newList: any = [];
 
-      abTest.items.forEach(function (item) {
+    abTest.items.forEach(function (item) {
 
-        let configDoc = prefix + 'ab_config_' + item.contents.testName + '_' + item.contents.variant;
-        let testDoc = StringUtil.toString(item.docId,'---');
-        let variant = StringUtil.toString(item.contents.variant,'1');
-        let priority = StringUtil.toString(item.contents.priority,'0');
+      let configDoc = prefix + 'ab_config_' + item.contents.testName + '_' + item.contents.variant;
+      let testDoc = StringUtil.toString(item.docId, '---');
+      let variant = StringUtil.toString(item.contents.variant, '1');
+      let priority = StringUtil.toString(item.contents.priority, '0');
 
-        let dataElem = new Data(
-          item.docName,
-          testDoc,
-          item.contents.description,
-          item.contents.enabled,
-          variant,
-          configDoc,
-          priority
-        );
+      let dataElem = new Data(
+        item.docName,
+        testDoc,
+        item.contents.description,
+        item.contents.enabled,
+        variant,
+        configDoc,
+        priority
+      );
 
-        //console.log(dataElem);
-        newList.push(dataElem);
+      //console.log(dataElem);
+      newList.push(dataElem);
 
-      });
-      this.dataArray = newList;
-    }
+    });
+    this.dataArray = newList;
+  }
 
 
-  getCouchbaseDocument(docName:string) {
+  getCouchbaseDocument(docName: string) {
     console.log('docget ' + docName);
-    let http = PostsService.http;
-    this.server = new PostsService(http);
 
-    this.server.getCouchbaseDocument(docName).subscribe((posts: any) => {
+    this._postsService.getCouchbaseDocument(docName).subscribe((posts: any) => {
       this.abTestResponse = posts;
       if (posts !== undefined) {
         console.log('==============================');
         this.abTestConfigResponseModel = plainToClass(ABTestConfigResponseModel, posts);
-        console.log( this.abTestConfigResponseModel );
+        console.log(this.abTestConfigResponseModel);
+      }
+      else {
+        console.log('getCouchbaseDocument ========== FAIL');
       }
     });
     return this.abTestConfigResponseModel;
   }
 
   toggle() {
-      this.expanded = !this.expanded;
-    }
+    this.expanded = !this.expanded;
+  }
 
-    getIcon() {
-      if (this.expanded) {
-        return 'glyphicon glyphicon-folder-open';
-      }
+  getIcon() {
+    if (this.expanded) {
       return 'glyphicon glyphicon-folder-open';
     }
+    return 'glyphicon glyphicon-folder-open';
+  }
 
   getButtonClass(showVal: boolean) {
     if (showVal) {
@@ -105,37 +104,36 @@ export class Directory {
   }
 
 
-    check() {
-      this.checked = !this.checked;
-      this.checkRecursive(this.checked);
-    }
-
-    checkRecursive(state: boolean) {
-      // this.children.forEach(d => {
-      //   d.checked = state;
-      //   d.checkRecursive(state);
-      // });
-    }
+  check() {
+    this.checked = !this.checked;
+    this.checkRecursive(this.checked);
   }
 
-  export interface DataIF {
-    docName: string;
-    id: string;
-    enabled: boolean;
-    variant: string;
-    configDocName: string;
-    label: string;
-    priority: string;
+  checkRecursive(state: boolean) {
+    // this.children.forEach(d => {
+    //   d.checked = state;
+    //   d.checkRecursive(state);
+    // });
   }
+}
 
-  export class Data implements DataIF {
-    constructor(
-      public docName:string,
-      public id:string,
-      public label:string,
-      public enabled: boolean,
-      public variant: string,
-      public configDocName: string,
-      public priority: string,
-    ) { }
+export interface DataIF {
+  docName: string;
+  id: string;
+  enabled: boolean;
+  variant: string;
+  configDocName: string;
+  label: string;
+  priority: string;
+}
+
+export class Data implements DataIF {
+  constructor(public docName: string,
+              public id: string,
+              public label: string,
+              public enabled: boolean,
+              public variant: string,
+              public configDocName: string,
+              public priority: string,) {
   }
+}

@@ -12,12 +12,14 @@ import { HttpService }        from "./services/http/http.service";
 import { HttpCommComponent }  from "./components/http-comm/http-comm";
 import { ABTestDocument }     from "./services/ABTestDocument/ABTestDocument.service";
 import { BodyWrapper }        from "./components/body-wrapper/body-wrapper";
+import { ServerConnection }   from "./services/ServerConnection/ServerConnection.service";
+import {Directory} from "./components/tree-view/directory";
 
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule ],
   declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore, BodyWrapper ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PostsService, ABTestDocument, HttpService ]
+  providers:    [ PostsService, ABTestDocument, HttpService, ServerConnection, Directory ]
 })
 export class AppModule { }

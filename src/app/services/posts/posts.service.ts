@@ -5,21 +5,16 @@ import { Injectable }                   from '@angular/core';
 import { Http, URLSearchParams, Jsonp, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { ServerConnection } from "../ServerConnection/ServerConnection.service";
 
 @Injectable()
 export class PostsService {
     abTests:any;
-    server:string;
-    public static jsonp:Jsonp = null;
     public static http:Http = null;
 
-    // constructor(private jsonp: Jsonp) {
-    constructor(private http: Http) {
+    constructor(private http: Http, protected _serverConnection:ServerConnection) {
       console.log('PostsService Initialized...');
       this.abTests = null;
-      this.server = 'https://gf2.pfxdev.com/';
-      // console.log(this.jsonp);
-      // PostsService.jsonp = this.jsonp;
       console.log(this.http);
       PostsService.http = this.http;
     }
@@ -27,37 +22,20 @@ export class PostsService {
     getABTests() {
       console.log('abtests');
       if (this.abTests===null) {
-        let name = this.server + 'admin/get_ab_tests';
-        // this.abTests = this.jsonp
-        //                    .get(configDocumentName + '?callback=JSONP_CALLBACK', {})
-        //                    .toPromise()
-        //                    .then((request) => request.json()[1]);
-
-
-
-
-        this.abTests = this.http.get(this.server + 'admin/get_ab_tests')
+        let name = this._serverConnection.getUrl() + 'admin/get_ab_tests';
+        this.abTests = this.http.get(name)
           .map(res => res.json());
-
-
-        console.log('called url');
+        console.log('called url: ' + name);
       }
       console.log('getabtests');
       return this.abTests;
     }
 
     getCouchbaseDocument(docName:string) {
-      return this.http.get(this.server + 'admin/couchbase_get/' + docName)
+      let name = this._serverConnection.getUrl() + 'admin/couchbase_get/' + docName;
+      console.log('PostsServices::getCouchbaseDocument(name): ' + name );
+      return this.http.get(name)
         .map(res => res.json());
-
-      // console.log('PostsService docget: ' + docName);
-      // let configDocumentName = this.server + 'admin/get_ab_tests';
-      // let doc = this.jsonp
-      //   .get(configDocumentName + '?callback=JSONP_CALLBACK', {})
-      //   .toPromise()
-      //   .then((request) => request.json()[1]);
-      //
-      // return doc;
     }
 
 }

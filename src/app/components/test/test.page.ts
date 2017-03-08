@@ -5,12 +5,13 @@ import { abContentsIF, abTestResponseIF } from '../interface/ABTestIF';
 import { ABTestDocument }       from "../../services/ABTestDocument/ABTestDocument.service";
 import { plainToClass }         from "class-transformer";
 import { ABTestsResponseModel } from "../../services/interfaces/ABTestsResponseModel";
+import {ServerConnection} from "../../services/ServerConnection/ServerConnection.service";
 
 @Component({
   moduleId: module.id,
   selector: 'test',
   templateUrl: './test.page.html',
-  providers: [PostsService],
+  providers: [PostsService, ServerConnection],
 
 })
 export class TestPage {
