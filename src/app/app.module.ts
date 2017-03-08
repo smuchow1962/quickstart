@@ -11,11 +11,12 @@ import { PostsService }       from "./services/posts/posts.service";
 import { HttpService }        from "./services/http/http.service";
 import { HttpCommComponent }  from "./components/http-comm/http-comm";
 import { ABTestDocument }     from "./services/ABTestDocument/ABTestDocument.service";
+import { BodyWrapper }        from "./components/body-wrapper/body-wrapper";
 
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule ],
-  declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore ],
+  declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore, BodyWrapper ],
   bootstrap:    [ AppComponent ],
   providers:    [ PostsService, ABTestDocument, HttpService ]
 })

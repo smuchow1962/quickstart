@@ -29,7 +29,7 @@ export class PostsService {
       if (this.abTests===null) {
         let name = this.server + 'admin/get_ab_tests';
         // this.abTests = this.jsonp
-        //                    .get(name + '?callback=JSONP_CALLBACK', {})
+        //                    .get(configDocumentName + '?callback=JSONP_CALLBACK', {})
         //                    .toPromise()
         //                    .then((request) => request.json()[1]);
 
@@ -51,9 +51,9 @@ export class PostsService {
         .map(res => res.json());
 
       // console.log('PostsService docget: ' + docName);
-      // let name = this.server + 'admin/get_ab_tests';
+      // let configDocumentName = this.server + 'admin/get_ab_tests';
       // let doc = this.jsonp
-      //   .get(name + '?callback=JSONP_CALLBACK', {})
+      //   .get(configDocumentName + '?callback=JSONP_CALLBACK', {})
       //   .toPromise()
       //   .then((request) => request.json()[1]);
       //

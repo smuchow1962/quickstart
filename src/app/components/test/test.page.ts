@@ -1,11 +1,10 @@
-import { Component }     from '@angular/core';
+import { Component, EventEmitter, Input, Output  }     from '@angular/core';
 import { PostsService }  from '../../services/posts/posts.service';
 import { Directory }     from '../tree-view/directory';
-import { TreeView }     from '../tree-view/tree-view';
-import { abTestIF, abContentsIF, abControlFlagIF, abItemIF, abResponsIF, abTestResponseIF,
-         ABTestResponse } from '../interface/ABTestIF';
-import { AbTestCore }     from '../abtest-core-view/abtest-core'
-import { ABTestDocument } from "../../services/ABTestDocument/ABTestDocument.service";
+import { abContentsIF, abTestResponseIF } from '../interface/ABTestIF';
+import { ABTestDocument }       from "../../services/ABTestDocument/ABTestDocument.service";
+import { plainToClass }         from "class-transformer";
+import { ABTestsResponseModel } from "../../services/interfaces/ABTestsResponseModel";
 
 @Component({
   moduleId: module.id,
@@ -15,25 +14,29 @@ import { ABTestDocument } from "../../services/ABTestDocument/ABTestDocument.ser
 
 })
 export class TestPage {
-  name: string; //: string;
+  @Input() configDocumentName: string = 'SAM'; //: string;
   email: string; //: string;
   access: accessTree;
   abTestResponse: abTestResponseIF;
   abConfigInfoDoc: abContentsIF;
   treeNode: Array<Directory>;
   tests: string[];
+  abTestResponseModel: any; // make the lint not complain???
+  @Output() onDocNameToLoad = new EventEmitter<string>();
 
-  constructor(private postsService: PostsService, private _abTestDocument:ABTestDocument) {
+  constructor(private _postService: PostsService, private _abTestDocument:ABTestDocument) {
     console.log('TestPage.constructor()');
     console.log(this._abTestDocument);
-    this.name = 'Steve Muchow';
+    this.configDocumentName = 'Steve Muchow';
     this.email = 'smuchow1962@gmail.com';
     this.access = {
       names : []
     };
 
-    this.postsService.getABTests().subscribe((posts: any) => {
+    this._postService.getABTests().subscribe((posts: any) => {
       this.abTestResponse = posts;
+      let dataObj = plainToClass(ABTestsResponseModel,posts);
+      this.abTestResponseModel = dataObj;
       this.tests = this.parseABTestPost(this.abTestResponse);
       this.treeNode = this.makeDirectoriesFromABTestPost(this.abTestResponse);
 
@@ -52,9 +55,10 @@ export class TestPage {
       this.abConfigInfoDoc = arg;
       let data = arg.responses[0].data;
       console.log(data);
-      this.name = 'v2_ab_config_' + data.testName + '_' + data.variant;
+      this.configDocumentName = 'v2_ab_config_' + data.testName + '_' + data.variant;
+      this.onDocNameToLoad.emit(this.configDocumentName);
 
-      // this.name = this.abConfigInfoDoc.getConfigDocName('v2_');
+      // this.configDocumentName = this.abConfigInfoDoc.getConfigDocName('v2_');
     }
   }
 

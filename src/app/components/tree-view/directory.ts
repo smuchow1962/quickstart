@@ -6,6 +6,8 @@ import { Injectable }     from '@angular/core';
 import { abTestIF,
          abTestResponseIF
        } from '../interface/ABTestIF';
+import { ABTestConfigResponseModel } from "../../services/interfaces/ABTestConfigResponseModel";
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class Directory {
@@ -16,14 +18,15 @@ export class Directory {
     dataArray: Array<DataIF>;
     checked: boolean;
     server: PostsService;
-    server:string;
+    serverName:string;
     abTestResponse: abTestResponseIF;
+    abTestConfigResponseModel: any;
 
     constructor() {
-      console.log('creating Directory')
-      this.dataArray = new Array<DataIF>();
+      console.log('creating Directory');
+      this.dataArray = [];
       this.expanded = false;
-      this.server = 'https://gf2.pfxdev.com/';
+      this.serverName = 'https://gf2.pfxdev.com/';
     }
 
     setFromABTest(abTest:abTestIF, prefix:string='') {
@@ -33,7 +36,7 @@ export class Directory {
       this.displayLabel = abTest.test;
       // console.log(this);
 
-      let newList = new Array<DataIF>();
+      let newList:any = [];
 
       abTest.items.forEach(function (item) {
 
@@ -67,8 +70,13 @@ export class Directory {
 
     this.server.getCouchbaseDocument(docName).subscribe((posts: any) => {
       this.abTestResponse = posts;
+      if (posts !== undefined) {
+        console.log('==============================');
+        this.abTestConfigResponseModel = plainToClass(ABTestConfigResponseModel, posts);
+        console.log( this.abTestConfigResponseModel );
+      }
     });
-    return this.abTestResponse;
+    return this.abTestConfigResponseModel;
   }
 
   toggle() {

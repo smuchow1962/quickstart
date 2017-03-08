@@ -1,4 +1,4 @@
-<!--<ABTestCore [testString]="name"></ABTestCore>-->
+<!--<ABTestCore [testString]="configDocumentName"></ABTestCore>-->
 <ul class="tree-list-inner tree">
   <li *ngFor="let dir of cbAbTests">
     <span (click)="dir.toggle()"><i class="{{dir.getIcon()}}"></i> &nbsp;&nbsp;&nbsp;{{ dir.displayLabel }}</span>
