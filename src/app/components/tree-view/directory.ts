@@ -72,7 +72,7 @@ export class Directory {
         console.log(this.abTestConfigResponseModel);
       }
       else {
-        console.log('getCouchbaseDocument ========== FAIL');
+        console.log('getConfigCouchbaseDocument ========== FAIL');
       }
     });
     return this.abTestConfigResponseModel;

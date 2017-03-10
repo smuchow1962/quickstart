@@ -3,19 +3,18 @@
  */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { abTestIF, abTestResponseIF }             from '../interface/ABTestIF';
+import {TreeLeaf} from "../../services/interfaces/TreeNodeModel";
+import {ServerConnection} from "../../services/ServerConnection/ServerConnection.service";
 
 @Component({
   moduleId: module.id,
   selector: 'body-wrapper',
   template: `
-
-  Test {{configDocumentName}}
   <div class=ab-body-wrapper>
   <div class=ab-test-browser-container>
     <div class=tree-control-container>
       <div class="tree-list">
-        <test  [(configDocumentName)]="configDocumentName"   (onDocNameToLoad)="applyDocument($event)" class="tree-list-inner"></test>
+        <test-component  [(currentABTestGroup)]="treeLeafObject"   (onDocNameToLoad)="loadConfigDocument($event)" class="tree-list-inner"></test-component>
       </div>
       <div class=tree-entry>
         <div class=tree-entry-inner>ddd entry inner data</div>
@@ -25,7 +24,7 @@ import { abTestIF, abTestResponseIF }             from '../interface/ABTestIF';
   <div class=ab-test-content-container>
     <div class=tab-view>
       <div class=tab-inner>
-        ababab abababa
+        {{configDocumentName}}
         </div>
     </div>
   </div>
@@ -37,16 +36,15 @@ import { abTestIF, abTestResponseIF }             from '../interface/ABTestIF';
 })
 export class BodyWrapper {
 
-  constructor() {}
+  constructor(protected _serverConnection:ServerConnection) {}
   testString:string;
-  configDocumentName:string;
+  treeLeafObject:TreeLeaf;
+  configDocumentName: string;
 
-
-  applyDocument(documentName:any) {
-    console.log('BodyWrapper::applyDocument: ' + documentName);
-    if (documentName !== undefined) {
-      this.configDocumentName = documentName;
-    }
+  loadConfigDocument(leafObject:TreeLeaf) {
+    this.treeLeafObject = leafObject;
+    this.configDocumentName = leafObject.getConfigDocName(this._serverConnection.getDocumentPrefix());
+    console.log('BodyWrapper::loadConfigDocument: ' + this.configDocumentName);
   }
 
 

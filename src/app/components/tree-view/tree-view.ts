@@ -2,29 +2,30 @@
  * Created by 104653 on 2/28/17.
  */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Directory, DataIF }                      from './directory';
-import { abTestIF, abTestResponseIF }             from '../interface/ABTestIF';
+import {TreeNode, TreeLeafIF, TreeLeaf} from "../../services/interfaces/TreeNodeModel";
+import {TreeBuilder} from "../../services/TreeBuilder/TreeBuilder.service";
+import {ServerConnection} from "../../services/ServerConnection/ServerConnection.service";
+import {plainToClass} from "class-transformer";
 
 @Component({
   moduleId: module.id,
   selector: 'tree-view',
   templateUrl: './tree-view.html',
-  providers: [Directory],
-  // inputs: [ 'cbAbTests' ],
-  // outputs: [ 'selectFile' ],
+  providers: [TreeBuilder, ServerConnection],
 })
 export class TreeView {
-  @Output()  treeViewEvent: EventEmitter<abTestResponseIF> = new EventEmitter();
-  @Input()   cbAbTests: Array<Directory>;
+  @Output()  treeViewEvent: EventEmitter<TreeLeaf> = new EventEmitter();
+  @Input()   cbAbTests: Array<TreeNode>;
 
-  constructor( protected _directory:Directory ) {
+  constructor( protected _treeNodes:TreeBuilder, protected _serverConnection:ServerConnection ) {
   }
 
-  selectFile(item:DataIF) {
+  selectFile(item:TreeLeafIF) {
+    let leaf = plainToClass(TreeLeaf,item);
     console.log('File Selected: ' + item.docName);
-    let doc = this._directory.getCouchbaseDocument(item.docName);
-    console.log(doc);
-    this.treeViewEvent.emit(doc);
+    let configDocName = leaf.getConfigDocName(this._serverConnection.getDocumentPrefix());
+    console.log('Config Doc For File: ' + configDocName);
+    this.treeViewEvent.emit(leaf);
   }
 
 }

@@ -15,11 +15,6 @@ import { ABTestDocument}                          from '../../services/ABTestDoc
   // changeDetection: ChangeDetectionStrategy.OnPush,
   // templateUrl: './tree-view.html',
   template: `
-<div  >
-docdata<br>
-      DOCUMENT: {{documentData}}    
-</div>
-     
   `,
   providers: [Directory, ABTestDocument],
   // directives: [ TestPage ],
@@ -34,7 +29,7 @@ export class AbTestCore {
 
 
   applyDocument(documentName:any) {
-    console.log('applyDocument: ' + documentName);
+    console.log('loadConfigDocument: ' + documentName);
 
   }
 

@@ -13,13 +13,15 @@ import { HttpCommComponent }  from "./components/http-comm/http-comm";
 import { ABTestDocument }     from "./services/ABTestDocument/ABTestDocument.service";
 import { BodyWrapper }        from "./components/body-wrapper/body-wrapper";
 import { ServerConnection }   from "./services/ServerConnection/ServerConnection.service";
-import {Directory} from "./components/tree-view/directory";
+import { Directory }          from "./components/tree-view/directory";
+import { TreeBuilder }        from "./services/TreeBuilder/TreeBuilder.service";
+import { HeaderView }         from "./components/header-view/HeaderView";
 
 
 @NgModule({
   imports:      [ BrowserModule, FormsModule, HttpModule ],
-  declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore, BodyWrapper ],
+  declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore, BodyWrapper, HeaderView ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PostsService, ABTestDocument, HttpService, ServerConnection, Directory ]
+  providers:    [ PostsService, ABTestDocument, HttpService, ServerConnection, Directory, TreeBuilder ]
 })
 export class AppModule { }

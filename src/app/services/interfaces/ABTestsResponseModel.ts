@@ -64,7 +64,7 @@ export class ABTestGroupContents {
 }
 
 /**
- * An encapsulation of the v2_ab_test_group_{docId} document. Priority Info, (docId), test configDocumentName, etc.
+ * An encapsulation of the v2_ab_test_group_{docId} document. Priority Info, (docId), test treeLeafObject, etc.
  * This document helps to alphabetize the v2_ab_test_group_{docId} items and modify the tree labelling if needed.
  */
 export class ABTestConfigInfo {
@@ -80,7 +80,7 @@ export class ABTestConfigInfo {
  * all the v2_ab_test_group_{docId} documents that map to the 'test' string are grouped together
  */
 export class ABTestCollectionObject {
-  test: string; // bet_calculator, early_access, etc. - the test configDocumentName
+  test: string; // bet_calculator, early_access, etc. - the test treeLeafObject
   @Type(() => ABTestConfigInfo)
   items: ABTestConfigInfo[]; // unique config_document items associated with the test
 }

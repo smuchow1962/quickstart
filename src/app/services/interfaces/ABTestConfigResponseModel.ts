@@ -10,7 +10,7 @@ import { Type } from "class-transformer";
  */
 export class ABTestConfigDocument {
   $type: string;    // always "$type" : "models.EmptyModel"
-  docName: string;  // the couchbase document configDocumentName
+  docName: string;  // the couchbase document treeLeafObject
   data: any;        // the data contents
 }
 

@@ -20,20 +20,16 @@ export class PostsService {
     }
 
     getABTests() {
-      console.log('abtests');
-      if (this.abTests===null) {
-        let name = this._serverConnection.getUrl() + 'admin/get_ab_tests';
-        this.abTests = this.http.get(name)
+      let name = this._serverConnection.getUrl() + 'admin/get_ab_tests';
+         this.abTests = this.http.get(name)
           .map(res => res.json());
-        console.log('called url: ' + name);
-      }
-      console.log('getabtests');
+      console.log('called url: ' + name);
       return this.abTests;
     }
 
     getCouchbaseDocument(docName:string) {
       let name = this._serverConnection.getUrl() + 'admin/couchbase_get/' + docName;
-      console.log('PostsServices::getCouchbaseDocument(name): ' + name );
+      console.log('PostsServices::getConfigCouchbaseDocument(name): ' + name );
       return this.http.get(name)
         .map(res => res.json());
     }
