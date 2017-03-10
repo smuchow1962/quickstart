@@ -7,6 +7,7 @@ import { Directory, DataIF }                      from '../tree-view/directory';
 import { abTestIF, abTestResponseIF }             from '../interface/ABTestIF';
 import { TestPage }                               from '../test/test.page'
 import { ABTestDocument}                          from '../../services/ABTestDocument/ABTestDocument.service';
+import {TreeLeaf} from "../../services/interfaces/TreeNodeModel";
 
 
 @Component({
@@ -22,9 +23,19 @@ import { ABTestDocument}                          from '../../services/ABTestDoc
 export class AbTestCore {
   @Input()  testString:string;
   @Input()  documentData:string;
+  currentABTestGroup : TreeLeaf;
 
   constructor( protected _directory:Directory, protected _testDocument:ABTestDocument ) {
     console.log('built AbTestCore and ABTestDocument');
+  }
+
+  configDocEvent(arg:TreeLeaf) {
+    if (arg !== undefined) {
+      console.log('ABTestCore::configDocEvent(): ' + arg.docName );
+      this.currentABTestGroup = arg;
+
+      // this.treeLeafObject = this.abConfigInfoDoc.getConfigDocName('v2_');
+    }
   }
 
 

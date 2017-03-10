@@ -5,6 +5,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {TreeLeaf} from "../../services/interfaces/TreeNodeModel";
 import {ServerConnection} from "../../services/ServerConnection/ServerConnection.service";
+import {ABTestDocument} from "../../services/ABTestDocument/ABTestDocument.service";
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,8 @@ import {ServerConnection} from "../../services/ServerConnection/ServerConnection
   <div class=ab-test-content-container>
     <div class=tab-view>
       <div class=tab-inner>
-        {{configDocumentName}}
+        {{configDocumentName}}<br>
+        {{configDocument | json}}
         </div>
     </div>
   </div>
@@ -36,15 +38,18 @@ import {ServerConnection} from "../../services/ServerConnection/ServerConnection
 })
 export class BodyWrapper {
 
-  constructor(protected _serverConnection:ServerConnection) {}
+  constructor(protected _serverConnection:ServerConnection, protected _testDocService:ABTestDocument) {}
   testString:string;
   treeLeafObject:TreeLeaf;
   configDocumentName: string;
+  configDocument: any;
 
   loadConfigDocument(leafObject:TreeLeaf) {
     this.treeLeafObject = leafObject;
     this.configDocumentName = leafObject.getConfigDocName(this._serverConnection.getDocumentPrefix());
+    this.configDocument = this._testDocService.getConfigCouchbaseDocument(this.configDocumentName);
     console.log('BodyWrapper::loadConfigDocument: ' + this.configDocumentName);
+    console.log(this.configDocument);
   }
 
 

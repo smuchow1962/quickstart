@@ -14,7 +14,7 @@ import {Http} from "@angular/http";
   moduleId: module.id,
   selector: 'test-component',
   templateUrl: './test.page.html',
-  providers: [PostsService],
+  providers: [],
 
 })
 export class TestPage implements OnInit {
@@ -36,7 +36,7 @@ export class TestPage implements OnInit {
 
   configDocEvent(arg:TreeLeaf) {
     if (arg !== undefined) {
-      console.log('EVENT PROPAGATED UPWARD: ' + arg );
+      console.log('EVENT PROPAGATED UPWARD: ' + arg.docName );
       this.currentABTestGroup = arg;
       this.onDocNameToLoad.emit(this.currentABTestGroup);
 

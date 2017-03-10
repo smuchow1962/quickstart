@@ -1,4 +1,4 @@
-<ABTestCore [(documentData)]="currentABTestGroup"   ></ABTestCore>
+<ABTestCore [(documentData)]="currentABTestGroup"  (treeViewEvent)="configDocEvent($event)" ></ABTestCore>
 <!--<ABTestCore (onDocNameToLoad)="loadConfigDocument($event)" ></ABTestCore>-->
 <tree-view [cbAbTests]="getTreeNode()"  (treeViewEvent)="configDocEvent($event)" >
 </tree-view>
