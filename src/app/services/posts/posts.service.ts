@@ -20,10 +20,11 @@ export class PostsService {
     }
 
     getABTests() {
+      this.abTests = undefined;
       let name = this._serverConnection.getUrl() + 'admin/get_ab_tests';
-         this.abTests = this.http.get(name)
+      console.log('PostsService::getABTests(): ' + name);
+      this.abTests = this.http.get(name)
           .map(res => res.json());
-      console.log('called url: ' + name);
       return this.abTests;
     }
 

@@ -22,6 +22,6 @@ import { HeaderView }         from "./components/header-view/HeaderView";
   imports:      [ BrowserModule, FormsModule, HttpModule ],
   declarations: [ AppComponent, TestPage, TreeView, HttpCommComponent, AbTestCore, BodyWrapper, HeaderView ],
   bootstrap:    [ AppComponent ],
-  providers:    [ PostsService, ABTestDocument, HttpService, ServerConnection, Directory, TreeBuilder ]
+  providers:    [ PostsService, ABTestDocument, HttpService, Directory, ServerConnection, TreeBuilder ]
 })
 export class AppModule { }

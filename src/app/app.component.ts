@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ServerConnection} from "./services/ServerConnection/ServerConnection.service";
 
 @Component({
   moduleId: module.id,
@@ -8,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent  {
 
-  constructor() {
+  constructor(protected _serverConnection:ServerConnection) {
   }
 
 }

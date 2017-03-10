@@ -19,6 +19,9 @@ import {TreeBuilder} from "../../services/TreeBuilder/TreeBuilder.service";
     <div class="span12">
     <p class="lead">SGI - Goldfish Casino Slots V2 AB Test Admin Tool</p>
     <div id="tab" class="bt-group" data-toggle="buttons">
+    <a class="btn btn-default" data-toggle="tab" (click)="setConnection('local')">
+    <input type="radio">LOCAL
+</a>
     <a class="btn btn-default active" data-toggle="tab" (click)="setConnection('dev')">
     <input type="radio">DEV
 </a>
@@ -37,6 +40,7 @@ The Base URL is: {{_serverConnection.getUrl()}}
   `,
   // inputs: [ 'cbAbTests' ],
   // outputs: [ 'selectFile' ],
+  providers: []
 })
 export class HeaderView {
 

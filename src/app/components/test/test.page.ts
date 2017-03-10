@@ -14,7 +14,7 @@ import {Http} from "@angular/http";
   moduleId: module.id,
   selector: 'test-component',
   templateUrl: './test.page.html',
-  providers: [PostsService, ServerConnection],
+  providers: [PostsService],
 
 })
 export class TestPage implements OnInit {

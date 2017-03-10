@@ -33,13 +33,13 @@ export class TreeBuilder {
   }
 
   refreshList() {
-    this._postService.getABTests();
+    this.nodes = [];
     this.waitMessage();
+    // this._postService.getABTests();
   }
 
   waitMessage() {
     this._postService.getABTests().subscribe((posts: any) => {
-      //console.log
       this.abTestResponse = posts;
       this.abTestResponseModel = plainToClass(ABTestsResponseModel,posts);
       this.tests = this.parseABTestPost(this.abTestResponse);
@@ -49,7 +49,7 @@ export class TreeBuilder {
       this.access = {
         names : this.tests
       };
-      console.log(this.abTestResponse);
+      // console.log(this.abTestResponse);
     });
   }
 

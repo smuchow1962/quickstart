@@ -1,5 +1,5 @@
 <!--<ABTestCore [testString]="treeLeafObject"></ABTestCore>-->
-<ul class="tree-list-inner tree">
+<ul class="tree-list-inner tree {{getStyle()}}">
   <li *ngFor="let dir of cbAbTests">
     <span (click)="dir.toggle()"><i class="{{dir.getIcon()}}"></i> &nbsp;&nbsp;&nbsp;{{ dir.displayLabel() }}</span>
     <div *ngIf="dir.expanded">

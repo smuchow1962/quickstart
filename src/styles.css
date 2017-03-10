@@ -228,6 +228,22 @@ body > * {
   position: absolute;
 }
 
+.tree-bg-dev {
+  background-color: #e6ffe6;
+}
+
+.tree-bg-qa {
+  background-color: #ffffb3;
+}
+
+.tree-bg-prod {
+  background-color: #ffd6cc;
+}
+
+.tree-bg-local {
+  background-color: #cce6ff;
+}
+
 .tree-entry-inner {
   height: 105px;
   /*background-color: gainsboro;*/

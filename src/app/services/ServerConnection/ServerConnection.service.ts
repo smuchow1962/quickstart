@@ -15,14 +15,14 @@ export class ServerConnection {
 
   urls : any = {
     gf2 : {
-      local:  'localhost:8080/',
+      local:  'http://gflocal.scientificgames.com:8080/',
       dev:    'https://gf2.pfxdev.com/',
       qa:     'https://gf2.pfxtest.com/',
       prod:   'https://gf2.pfxprod.com/',
       prefix: 'v2_',
     },
     gf : {
-      local:  'localhost:8080/',
+      local:  'http://gflocal.scientificgames.com:8080/',
       dev:    'https://gf.pfxdev.com/',
       qa:     'https://gf.pfxtest.com/',
       prod:   'https://gf.pfxprod.com/',
@@ -48,6 +48,7 @@ export class ServerConnection {
   setCurrentUrl(server: string) {
     this.currentServerType = server;
     this.currentUrl = this.urls[this.currentGame][server];
+    console.log('ServerConnection::setCurrentUrl(): ' + server + '  serverType: ' + this.currentServerType);
   }
 
   getDocumentPrefix() {

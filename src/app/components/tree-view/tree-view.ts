@@ -11,13 +11,19 @@ import {plainToClass} from "class-transformer";
   moduleId: module.id,
   selector: 'tree-view',
   templateUrl: './tree-view.html',
-  providers: [TreeBuilder, ServerConnection],
+  providers: [],
 })
 export class TreeView {
   @Output()  treeViewEvent: EventEmitter<TreeLeaf> = new EventEmitter();
   @Input()   cbAbTests: Array<TreeNode>;
+  style: string = 'tree-bg-dev';
 
   constructor( protected _treeNodes:TreeBuilder, protected _serverConnection:ServerConnection ) {
+  }
+
+  getStyle() {
+    let str = 'tree-bg-' + this._serverConnection.getServerType();
+    return str;
   }
 
   selectFile(item:TreeLeafIF) {
